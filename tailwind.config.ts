@@ -6,7 +6,7 @@ export default {
 		"./pages/**/*.{ts,tsx}",
 		"./components/**/*.{ts,tsx}",
 		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{ts,tsx}",
+		"./src/**/*.{ts,tsx}"
 	],
 	prefix: "",
 	theme: {
@@ -61,6 +61,10 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				hazard: {
+					yellow: '#f1c40f',
+					black: '#121212'
 				}
 			},
 			borderRadius: {
@@ -70,25 +74,29 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' }
+				},
+				'flicker': {
+					'0%, 100%': { opacity: '1' },
+					'42%': { opacity: '0.8' },
+					'50%': { opacity: '0.2' },
+					'58%': { opacity: '0.9' },
+					'70%': { opacity: '0.7' },
+					'80%': { opacity: '1' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'neon-flicker': 'flicker 3s linear infinite'
+			},
+			backgroundImage: {
+				'hazard-pattern': 'repeating-linear-gradient(45deg, var(--hazard-yellow) 0, var(--hazard-yellow) 25px, var(--hazard-black) 25px, var(--hazard-black) 50px)'
 			}
 		}
 	},
