@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import TimeSlotButton from './TimeSlotButton';
 import BookingForm from './BookingForm';
+import UserRequestForm from './UserRequestForm';
+import { useAuth } from '@/context/AuthContext';
 
 interface BookedSlot {
   time: string;
@@ -17,6 +19,7 @@ interface QuestBookingProps {
 const timeSlots = ['12:00', '13:30', '15:00', '16:30', '18:00', '19:30', '21:00', '22:30'];
 
 const QuestBooking: React.FC<QuestBookingProps> = ({ questName }) => {
+  const { isAdmin } = useAuth();
   const [bookedSlots, setBookedSlots] = useState<BookedSlot[]>([]);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -50,8 +53,17 @@ const QuestBooking: React.FC<QuestBookingProps> = ({ questName }) => {
         ))}
       </div>
 
-      {selectedTime && (
+      {selectedTime && isAdmin && (
         <BookingForm
+          isOpen={isFormOpen}
+          onClose={handleCloseForm}
+          time={selectedTime}
+          questName={questName}
+        />
+      )}
+
+      {selectedTime && !isAdmin && (
+        <UserRequestForm
           isOpen={isFormOpen}
           onClose={handleCloseForm}
           time={selectedTime}
