@@ -3,12 +3,15 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from './ui/dialog';
+import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
 
 interface UserRequestFormProps {
   isOpen: boolean;
   onClose: () => void;
   time: string;
   questName: string;
+  date: Date;
   onSubmit?: (data: UserRequestData) => void;
 }
 
@@ -18,9 +21,17 @@ export interface UserRequestData {
   time: string;
   questName: string;
   timestamp: number;
+  date?: string;
 }
 
-const UserRequestForm: React.FC<UserRequestFormProps> = ({ isOpen, onClose, time, questName, onSubmit }) => {
+const UserRequestForm: React.FC<UserRequestFormProps> = ({ 
+  isOpen, 
+  onClose, 
+  time, 
+  questName, 
+  date,
+  onSubmit 
+}) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -33,7 +44,8 @@ const UserRequestForm: React.FC<UserRequestFormProps> = ({ isOpen, onClose, time
       phone,
       time,
       questName,
-      timestamp: Date.now()
+      timestamp: Date.now(),
+      date: format(date, 'yyyy-MM-dd')
     };
     
     // Сохраняем данные в localStorage
@@ -54,6 +66,8 @@ const UserRequestForm: React.FC<UserRequestFormProps> = ({ isOpen, onClose, time
     onClose();
   };
 
+  const formattedDate = format(date, 'dd MMMM yyyy', { locale: ru });
+
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-hazard-black border-2 border-hazard-orange text-hazard-yellow sm:max-w-md">
@@ -62,7 +76,7 @@ const UserRequestForm: React.FC<UserRequestFormProps> = ({ isOpen, onClose, time
             Запрос на бронирование
           </DialogTitle>
           <DialogDescription className="text-hazard-yellow opacity-70">
-            {questName} — {time}
+            {questName} — {formattedDate} в {time}
           </DialogDescription>
         </DialogHeader>
         
