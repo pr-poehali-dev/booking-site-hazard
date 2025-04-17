@@ -5,6 +5,7 @@
 :root {
   --hazard-yellow: #F5D547;
   --hazard-black: #131313;
+  --hazard-orange: #FF8C00;
 }
 
 body {
@@ -63,17 +64,28 @@ body {
   animation: neon-flicker 2s infinite alternate;
 }
 
-/* Добавляем специальные стили для сайта CHECK_OUT.МГН */
-.site-logo {
-  position: relative;
-  display: inline-block;
-  font-weight: bold;
-  letter-spacing: 1px;
+.orange-accent {
+  color: var(--hazard-orange);
 }
 
-.site-logo::after {
-  content: ".МГН";
-  font-size: 0.6em;
-  vertical-align: super;
-  margin-left: 2px;
+.orange-border {
+  border-color: var(--hazard-orange);
+}
+
+.container-main {
+  max-width: 98%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.user-request-card {
+  border: 2px solid var(--hazard-orange);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  background-color: rgba(255, 140, 0, 0.1);
+}
+
+.user-request-card:hover {
+  background-color: rgba(255, 140, 0, 0.2);
 }

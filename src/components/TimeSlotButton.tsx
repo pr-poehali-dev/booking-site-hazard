@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from './ui/button';
-import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 interface TimeSlotButtonProps {
   time: string;
@@ -11,14 +10,15 @@ interface TimeSlotButtonProps {
 const TimeSlotButton: React.FC<TimeSlotButtonProps> = ({ time, isBooked, onClick }) => {
   return (
     <Button
+      variant="outline"
+      className={`
+        h-16 w-24 rounded-md border-2 font-bold text-lg
+        ${isBooked 
+          ? 'bg-hazard-black text-gray-500 border-gray-500 cursor-not-allowed' 
+          : 'bg-hazard-black text-hazard-yellow border-hazard-orange hover:bg-hazard-orange hover:text-hazard-black'}
+      `}
       onClick={onClick}
       disabled={isBooked}
-      className={cn(
-        "w-24 h-14 border-2 font-bold text-lg transition-all",
-        isBooked 
-          ? "bg-hazard-black border-gray-600 text-gray-600 cursor-not-allowed" 
-          : "bg-hazard-black border-hazard-yellow text-hazard-yellow hover:bg-hazard-yellow hover:text-hazard-black"
-      )}
     >
       {time}
     </Button>

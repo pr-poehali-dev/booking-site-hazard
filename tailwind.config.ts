@@ -63,8 +63,9 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				hazard: {
-					yellow: '#f1c40f',
-					black: '#121212'
+					yellow: '#F5D547',
+					black: '#131313',
+					orange: '#FF8C00'
 				}
 			},
 			borderRadius: {

@@ -9,17 +9,41 @@ interface UserRequestFormProps {
   onClose: () => void;
   time: string;
   questName: string;
+  onSubmit?: (data: UserRequestData) => void;
 }
 
-const UserRequestForm: React.FC<UserRequestFormProps> = ({ isOpen, onClose, time, questName }) => {
+export interface UserRequestData {
+  name: string;
+  phone: string;
+  time: string;
+  questName: string;
+  timestamp: number;
+}
+
+const UserRequestForm: React.FC<UserRequestFormProps> = ({ isOpen, onClose, time, questName, onSubmit }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // В реальном приложении здесь был бы API-запрос для сохранения данных
-    console.log({ name, phone, time, questName });
+    
+    const requestData: UserRequestData = {
+      name,
+      phone,
+      time,
+      questName,
+      timestamp: Date.now()
+    };
+    
+    // Сохраняем данные в localStorage
+    const existingRequests = JSON.parse(localStorage.getItem('userRequests') || '[]');
+    localStorage.setItem('userRequests', JSON.stringify([...existingRequests, requestData]));
+    
+    if (onSubmit) {
+      onSubmit(requestData);
+    }
+    
     setIsSubmitted(true);
   };
 
@@ -32,9 +56,9 @@ const UserRequestForm: React.FC<UserRequestFormProps> = ({ isOpen, onClose, time
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-hazard-black border-2 border-hazard-yellow text-hazard-yellow sm:max-w-md">
+      <DialogContent className="bg-hazard-black border-2 border-hazard-orange text-hazard-yellow sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-hazard-yellow">
+          <DialogTitle className="text-xl font-bold text-hazard-orange">
             Запрос на бронирование
           </DialogTitle>
           <DialogDescription className="text-hazard-yellow opacity-70">
@@ -71,7 +95,7 @@ const UserRequestForm: React.FC<UserRequestFormProps> = ({ isOpen, onClose, time
             <DialogFooter>
               <Button 
                 type="submit" 
-                className="bg-hazard-yellow text-hazard-black hover:bg-yellow-600"
+                className="bg-hazard-orange text-hazard-black hover:bg-orange-600"
               >
                 Отправить заявку
               </Button>
@@ -79,7 +103,7 @@ const UserRequestForm: React.FC<UserRequestFormProps> = ({ isOpen, onClose, time
           </form>
         ) : (
           <div className="space-y-4 py-4">
-            <div className="text-center p-4 border-2 border-hazard-yellow rounded-lg">
+            <div className="text-center p-4 border-2 border-hazard-orange rounded-lg">
               <div className="text-5xl mb-4">✅</div>
               <h3 className="text-xl font-bold mb-2">Заявка отправлена!</h3>
               <p className="text-hazard-yellow opacity-80">
@@ -90,7 +114,7 @@ const UserRequestForm: React.FC<UserRequestFormProps> = ({ isOpen, onClose, time
             <DialogFooter>
               <Button 
                 onClick={handleClose} 
-                className="bg-hazard-yellow text-hazard-black hover:bg-yellow-600"
+                className="bg-hazard-orange text-hazard-black hover:bg-orange-600"
               >
                 Закрыть
               </Button>
