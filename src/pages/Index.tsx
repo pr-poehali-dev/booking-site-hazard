@@ -45,17 +45,18 @@ const Index = () => {
               )}
             </div>
             
-            <h1 className="text-4xl font-bold text-hazard-yellow text-center mb-2">СИСТЕМА БРОНИРОВАНИЯ КВЕСТОВ</h1>
+            <div className="flex justify-center mb-4">
+              <div className="animate-neon-flicker text-hazard-yellow font-bold text-4xl px-6 py-2 border-4 border-hazard-yellow rounded-lg">
+                CHECK_OUT.МГН
+              </div>
+            </div>
+            
+            <h1 className="text-3xl font-bold text-hazard-yellow text-center mb-2">СИСТЕМА БРОНИРОВАНИЯ КВЕСТОВ</h1>
             <p className="text-center text-xl text-hazard-yellow">
               {isAdmin 
                 ? "Система администрирования бронирований" 
                 : "Выберите время для отправки заявки на бронирование"}
             </p>
-            <div className="flex justify-center mt-2">
-              <div className="animate-neon-flicker text-hazard-yellow font-bold text-2xl px-4 py-1 border-2 border-hazard-yellow">
-                CHECK_OUT
-              </div>
-            </div>
           </header>
 
           <div className="space-y-10">
@@ -67,6 +68,11 @@ const Index = () => {
               <QuestBooking questName="В поисках артефакта" />
             </div>
           </div>
+          
+          <footer className="mt-10 text-center text-hazard-yellow">
+            <p>© 2023 CHECK_OUT.МГН - Все права защищены</p>
+            <p className="text-sm mt-1">support@check-out.мгн</p>
+          </footer>
         </div>
       </div>
 
